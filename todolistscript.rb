@@ -29,7 +29,7 @@ class ToDoList
       elsif user_input == "search"
         search_tasks
       else
-        puts "Invalid command"
+        puts "Invalid command."
         take_command
       end
   end
@@ -59,13 +59,13 @@ class ToDoList
         puts "Sounds good!"
         done?
       else
-        puts "Invalid command"
+        puts "Invalid command."
         view_list
       end
     else
       view_tasks = Task.where(user_id: @logged_on.id, completed: false)
       view_tasks.each do |t|
-        puts "Task ID - #{t.id}\ User ID - #{t.user_id}\ Task - #{t.task}\ Due Date - #{t.due_date}\ Completed? - #{t.completed}\ Time Created - #{t.created_at}"
+        puts "Task ID - #{t.id}\n User ID - #{t.user_id}\n Task - #{t.task}\n Due Date - #{t.due_date}\n Completed? - #{t.completed}\n Time Created - #{t.created_at}"
       end
       print "Would you like to cross an item off your To Do List? (y/n): "
       request_change = gets.chomp
@@ -75,7 +75,7 @@ class ToDoList
           puts "Sounds good!"
           done?
         else
-          puts "Invalid command"
+          puts "Invalid command."
           view_list
         end
       end
@@ -86,11 +86,11 @@ class ToDoList
     task_id_number = gets.chomp
     completed_task = Task.where(id: task_id_number)
       if completed_task
-        Task.where(id: task_id_number).update(completed: true)
-        puts "Your task has been updated as completed"
+        Task.find(task_id_number).update(completed: true)
+        puts "Your task has been updated as completed!"
         done?
       else
-        puts "ID Number not recognized"
+        puts "ID Number not recognized."
         change_status
       end
   end
@@ -100,7 +100,7 @@ class ToDoList
     search_term = gets.chomp
     express_search = Task.where(user_id: @logged_on.id).where("task LIKE ?", "%#{search_term}%")
     express_search.each do |exp|
-      puts "Task ID - #{exp.id}\ User ID - #{exp.user_id}\ Task - #{exp.task}\ Due Date - #{exp.due_date}\ Completed? - #{exp.completed}\ Time Created - #{exp.created_at}"
+      puts "Task ID - #{exp.id}\n User ID - #{exp.user_id}\n Task - #{exp.task}\n Due Date - #{exp.due_date}\n Completed? - #{exp.completed}\n Time Created - #{exp.created_at}"
     end
     done?
   end
@@ -114,7 +114,7 @@ class ToDoList
         puts "OK! Get to work!"
         exit
       else
-        puts "Invalid command"
+        puts "Invalid command."
         done?
       end
   end
