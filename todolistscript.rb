@@ -41,7 +41,7 @@ class ToDoList
     due_date = gets.chomp
     t = Task.create!(user_id: @logged_on.id, task: item_to_do, due_date: Date.parse(due_date), completed: false)
     t.save
-    puts "It's been added to your To Do List!"
+    puts "'#{t.task}' has been added to your To Do List!"
     done?
   end
 
@@ -86,8 +86,9 @@ class ToDoList
     task_id_number = gets.chomp
     completed_task = Task.where(id: task_id_number)
       if completed_task
-        Task.find(task_id_number).update(completed: true)
-        puts "Your task has been updated as completed!"
+        t1 = Task.find(task_id_number)
+        t1.update(completed: true)
+        puts "'#{t1.task}' has been updated as completed!"
         done?
       else
         puts "ID Number not recognized."
