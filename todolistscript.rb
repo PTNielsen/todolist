@@ -51,35 +51,46 @@ class ToDoList
 
   def view_list
     if Task.where(user_id: @logged_on.id, completed: false).count == 0
-      puts "You have no tasks on your To Do List!  Would you like to add one? (y/n): "
-      add_new = gets.chomp
-      if add_new == "y"
-        add_task
-      elsif add_new == "n"
-        puts "Sounds good!"
-        done?
-      else
-        puts "Invalid command."
-        view_list
-      end
+      view_empty_list
     else
-      view_tasks = Task.where(user_id: @logged_on.id, completed: false)
-      view_tasks.each do |t|
-        puts "Task ID - #{t.id}\n User ID - #{t.user_id}\n Task - #{t.task}\n Due Date - #{t.due_date}\n Completed? - #{t.completed}\n Time Created - #{t.created_at}"
-      end
-      print "Would you like to cross an item off your To Do List? (y/n): "
-      request_change = gets.chomp
-        if request_change == "y"
-          change_status
-        elsif request_change == "n"
-          puts "Sounds good!"
-          done?
-        else
-          puts "Invalid command."
-          view_list
-        end
-      end
+      view_list_with_tasks
+      cross_off_item
+    end
   end
+
+  def view_empty_list
+    puts "You have no tasks on your To Do List!  Would you like to add one? (y/n): "
+    add_new = gets.chomp
+    if add_new == "y"
+      add_task
+    elsif add_new == "n"
+      puts "Sounds good!"
+      done?
+    else
+      puts "Invalid command."
+      view_list
+    end
+  end
+
+  def view_list_with_tasks
+    view_tasks = Task.where(user_id: @logged_on.id, completed: false)
+    view_tasks.each do |t|
+      puts "Task ID - #{t.id}\n User ID - #{t.user_id}\n Task - #{t.task}\n Due Date - #{t.due_date}\n Completed? - #{t.completed}\n Time Created - #{t.created_at}"
+  end
+
+  def cross_off_item
+    print "Would you like to cross an item off your To Do List? (y/n): "
+    request_change = gets.chomp
+    if request_change == "y"
+      change_status
+    elsif request_change == "n"
+      puts "Sounds good!"
+      done?
+    else
+      puts "Invalid command."
+      view_list
+    end
+  end  
 
   def change_status
     print "What is the ID Number of the task you completed?: "
