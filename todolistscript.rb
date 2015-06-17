@@ -76,6 +76,7 @@ class ToDoList
     view_tasks = Task.where(user_id: @logged_on.id, completed: false)
     view_tasks.each do |t|
       puts "Task ID - #{t.id}\n User ID - #{t.user_id}\n Task - #{t.task}\n Due Date - #{t.due_date}\n Completed? - #{t.completed}\n Time Created - #{t.created_at}"
+    end
   end
 
   def cross_off_item
