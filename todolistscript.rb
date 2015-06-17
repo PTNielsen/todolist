@@ -11,27 +11,27 @@ class ToDoList
     print "Please enter your username: "
     user_name = gets.chomp
     @logged_on = User.where(name: user_name).first
-      if @logged_on
-        puts "Welcome back, #{@logged_on.name}!"
-      else
-        @logged_on = User.create! name: user_name
-        puts "Hello, #{@logged_on.name}!"
-      end
+    if @logged_on
+      puts "Welcome back, #{@logged_on.name}!"
+    else
+      @logged_on = User.create! name: user_name
+      puts "Hello, #{@logged_on.name}!"
+    end
   end
   
   def take_command
     print "Would you like to add a task, view your current To Do List, or search for a keyword? (add/view/search): "
     user_input = gets.chomp
-      if user_input == "add"
-        add_task
-      elsif user_input == "view"
-        view_list
-      elsif user_input == "search"
-        search_tasks
-      else
-        puts "Invalid command."
-        take_command
-      end
+    if user_input == "add"
+      add_task
+    elsif user_input == "view"
+      view_list
+    elsif user_input == "search"
+      search_tasks
+    else
+      puts "Invalid command."
+      take_command
+    end
   end
 
   def add_task
@@ -97,15 +97,15 @@ class ToDoList
     print "What is the ID Number of the task you completed?: "
     task_id_number = gets.chomp
     completed_task = Task.where(id: task_id_number)
-      if completed_task
-        t1 = Task.find(task_id_number)
-        t1.update(completed: true)
-        puts "'#{t1.task}' has been updated as completed!"
-        done?
-      else
-        puts "ID Number not recognized."
-        change_status
-      end
+    if completed_task
+      t1 = Task.find(task_id_number)
+      t1.update(completed: true)
+      puts "'#{t1.task}' has been updated as completed!"
+      done?
+    else
+      puts "ID Number not recognized."
+      change_status
+    end
   end
 
   def search_tasks
@@ -121,15 +121,15 @@ class ToDoList
   def done?
     print "Would you like to do anything else? (y/n): "
     done = gets.chomp
-      if done == "y"
-        take_command
-      elsif done == "n"
-        puts "OK! Get to work!"
-        exit
-      else
-        puts "Invalid command."
-        done?
-      end
+    if done == "y"
+      take_command
+    elsif done == "n"
+      puts "OK! Get to work!"
+      exit
+    else
+      puts "Invalid command."
+      done?
+    end
   end
 
 end
